@@ -1,0 +1,46 @@
+#!/bin/bash
+
+new=_new
+mp4=.mp4
+red=$'\e[1;31m%s\e[0m\n'
+
+echo
+printf "$red" "Made by Adam Neal: https://github.com/adamneal"
+
+echo
+echo Are you fixing a single file or a folder? [S/F]
+
+read choice
+
+if [[ $choice == S ]]
+then
+  echo
+  echo What is the directory?
+  read directory
+  echo
+  echo Please enter a file name
+  read filename
+  newfilename="${filename}${new}"
+  if directory = Desktop
+  then
+      cd ~/Desktop
+  else
+      cd $directory
+  fi
+  ffmpeg -i $filename$mp4 -preset:v superfast $newfilename$mp4
+  echo
+  printf "$red" "FILE FIXED"
+else
+  echo
+  echo What is the directory?
+  read directory
+  if directory = Desktop
+    then directory = ~/Desktop
+  else directory = $directory
+  fi
+  for file in "$directory"/*; do
+    var1=$(sed 's/.\{4\}$//' <<< "$file")
+    ffmpeg -i "$file" -preset:v superfast "$var1$new$mp4"
+  done
+  printf "$red" "ALL FILES FIXED"
+fi

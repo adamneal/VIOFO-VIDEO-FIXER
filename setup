@@ -1,0 +1,36 @@
+#!/bin/bash
+
+red=$'\e[1;31m%s\e[0m\n'
+echo
+printf "$red" "PLEASE LET EACH PROGRAM INSTALL BEFORE MOVING ON"
+echo
+
+echo
+echo Do you have xcode? [y/n]
+
+read xcode
+
+if [[ $xcode == n ]]
+  then
+    xcode-select --install
+fi
+
+echo
+echo Do you have homebrew? [y/n]
+read homebrew
+
+if [[ $homebrew == n ]]
+  then
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+
+echo
+echo Do you have ffmpeg? [y/n]
+read ff
+
+if [[ $ff == n ]]
+  then
+    brew install ffmpeg
+fi
+
+printf "$red" "SETUP COMPLETE, FIXER CAN NOW BE USED"
